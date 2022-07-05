@@ -1,3 +1,6 @@
+let scorePlayer = 0;
+let scoreComputer = 0;
+
 // Function that randomly outputs rock paper scissor
 function computerPlay() {
   rps = ["ROCK", "PAPER", "SCISSOR"];
@@ -15,20 +18,39 @@ function theRpsGame(playerSelection, computerSelection = computerPlay()) {
 
   // Game Logic
   if (playerSelection === computerSelection) {
-    return `This is a draw between ${playerSelection} and ${computerSelection}`;
-  } else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
-    return `You win! ${playerSelection} wins against ${computerSelection}`;
-  } else if (playerSelection === "ROCK" && computerSelection === "PAPER") {
-    return `You lose! ${playerSelection} loses against ${computerSelection}`;
-  } else if (playerSelection === "PAPER" && computerSelection === "SCISSOR") {
-    return `You lose! ${playerSelection} loses against ${computerSelection}`;
-  } else if (playerSelection === "SCISSOR" && computerSelection === "PAPER") {
-    return `You win! ${playerSelection} wins against ${computerSelection}`;
-  } else if (playerSelection === "ROCK" && computerSelection === "SCISSOR") {
-    return `You win! ${playerSelection} wins against ${computerSelection}`;
-  } else if (playerSelection === "SCISSOR" && computerSelection === "ROCK") {
-    return `You lose! ${playerSelection} loses against ${computerSelection}`;
+    return `This is a draw between ${playerSelection} and ${computerSelection}.`;
+  } else if (
+    (playerSelection === "PAPER" && computerSelection === "ROCK") ||
+    (playerSelection === "SCISSOR" && computerSelection === "PAPER") ||
+    (playerSelection === "ROCK" && computerSelection === "SCISSOR")
+  ) {
+    scorePlayer++;
+    return `You win! ${playerSelection} wins against ${computerSelection}.`;
+  } else if (
+    (playerSelection === "ROCK" && computerSelection === "PAPER") ||
+    (playerSelection === "PAPER" && computerSelection === "SCISSOR") ||
+    (playerSelection === "SCISSOR" && computerSelection === "ROCK")
+  ) {
+    scoreComputer++;
+    return `You lose! ${playerSelection} loses against ${computerSelection}.`;
   }
 }
 
-theRpsGame();
+// Game loop
+function game() {
+  for (i = 0; i < 5; i++) {
+    console.log(theRpsGame());
+    console.log(`Player score is: ${scorePlayer}\nComputer score is: ${scoreComputer}`);
+  }
+
+  // Count of score
+  if (scorePlayer > scoreComputer) {
+    console.log(`Player has won by ${scorePlayer} to ${scoreComputer} points.`);
+  } else if (scoreComputer > scorePlayer) {
+    console.log(`Player has lost by ${scoreComputer} to ${scorePlayer} points.`);
+  } else {
+    console.log(`It is a draw. Score is ${scorePlayer} to ${scoreComputer}`);
+  }
+}
+
+game();
