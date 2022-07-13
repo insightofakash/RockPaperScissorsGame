@@ -1,5 +1,14 @@
 let scorePlayer = 0;
 let scoreComputer = 0;
+let roundCount = 0;
+let playerOptionsDiv = document.querySelector(".playerOptions");
+let resultText = document.querySelector(".resultText");
+let finalResultText = document.querySelector(".finalResultText");
+let roundCountText = document.querySelector(".roundCountText");
+let currentPlayerScore = document.querySelector(".currentPlayerScore");
+let currentComputerScore = document.querySelector(".currentComputerScore");
+let playerImg = document.querySelector(".playerImg");
+let computerImg = document.querySelector(".computerImg");
 
 // Function that randomly outputs rock paper scissor
 function computerPlay() {
@@ -10,47 +19,55 @@ function computerPlay() {
 }
 
 function theRpsGame(playerSelection, computerSelection = computerPlay()) {
-  // Getting player input
-  playerSelection = prompt("Please select: ").toUpperCase();
-  // Printing out player and computer selection
-  console.log(`Player selected ${playerSelection}`);
-  console.log(`Computer selected ${computerSelection}`);
-
-  // Game Logic
-  if (playerSelection === computerSelection) {
-    return `This is a draw between ${playerSelection} and ${computerSelection}.`;
-  } else if (
-    (playerSelection === "PAPER" && computerSelection === "ROCK") ||
-    (playerSelection === "SCISSOR" && computerSelection === "PAPER") ||
-    (playerSelection === "ROCK" && computerSelection === "SCISSOR")
-  ) {
-    scorePlayer++;
-    return `You win! ${playerSelection} wins against ${computerSelection}.`;
-  } else if (
-    (playerSelection === "ROCK" && computerSelection === "PAPER") ||
-    (playerSelection === "PAPER" && computerSelection === "SCISSOR") ||
-    (playerSelection === "SCISSOR" && computerSelection === "ROCK")
-  ) {
-    scoreComputer++;
-    return `You lose! ${playerSelection} loses against ${computerSelection}.`;
+  if (computerSelection == "ROCK") {
+    computerImg.src = "img/Rock.png";
+  } else if (playerSelection == "PAPER") {
+    computerImg.src = "img/Paper.png";
+  } else if (playerSelection == "SCISSOR") {
+    computerImg.src = "img/Scissor.png";
   }
-}
-
-// Game loop
-function game() {
-  for (i = 0; i < 5; i++) {
-    console.log(theRpsGame());
-    console.log(`Player score is: ${scorePlayer}\nComputer score is: ${scoreComputer}`);
+  if (playerSelection == "ROCK") {
+    playerImg.src = "img/Rock.png";
+  } else if (playerSelection == "PAPER") {
+    playerImg.src = "img/Paper.png";
+  } else if (playerSelection == "SCISSOR") {
+    playerImg.src = "img/Scissor.png";
   }
 
-  // Count of score
-  if (scorePlayer > scoreComputer) {
-    console.log(`Player has won by ${scorePlayer} to ${scoreComputer} points.`);
-  } else if (scoreComputer > scorePlayer) {
-    console.log(`Player has lost by ${scoreComputer} to ${scorePlayer} points.`);
+  if (scorePlayer == 5) {
+    finalResultText.textContent = `Player wins. Score is ${scorePlayer} - ${scoreComputer}.`;
+  } else if (scoreComputer == 5) {
+    finalResultText.textContent = `Computer wins. Score is ${scorePlayer} - ${scoreComputer}.`;
   } else {
-    console.log(`It is a draw. Score is ${scorePlayer} to ${scoreComputer}`);
+    if (playerSelection === computerSelection) {
+      // Game Logic
+      roundCount++;
+      resultText.textContent = `This is a draw between ${playerSelection} and ${computerSelection}.`;
+    } else if (
+      (playerSelection === "PAPER" && computerSelection === "ROCK") ||
+      (playerSelection === "SCISSOR" && computerSelection === "PAPER") ||
+      (playerSelection === "ROCK" && computerSelection === "SCISSOR")
+    ) {
+      roundCount++;
+      scorePlayer++;
+      resultText.textContent = `You win! ${playerSelection} wins against ${computerSelection}.`;
+      currentPlayerScore.textContent = scorePlayer;
+    } else if (
+      (playerSelection === "ROCK" && computerSelection === "PAPER") ||
+      (playerSelection === "PAPER" && computerSelection === "SCISSOR") ||
+      (playerSelection === "SCISSOR" && computerSelection === "ROCK")
+    ) {
+      roundCount++;
+      scoreComputer++;
+      resultText.textContent = `You lose! ${playerSelection} loses against ${computerSelection}.`;
+      currentComputerScore.textContent = scoreComputer;
+    }
   }
+  roundCountText.textContent = `Round : ${roundCount}`;
 }
 
-game();
+// Options for player's selection
+const playRound = playerOptionsDiv.addEventListener("click", function (e) {
+  playerSelection = e.target.innerText.toUpperCase();
+  theRpsGame(playerSelection);
+});

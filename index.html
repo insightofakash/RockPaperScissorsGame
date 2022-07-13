@@ -5,12 +5,32 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Rock Paper Scissor Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div class="mainbody">
+    <h3 class="roundCountText">Round : 0</h3>
 
-  <script src="script.js"></script>
+    <h4 class="currentRunningScore">Player <span class="currentPlayerScore">0</span> : <span
+        class="currentComputerScore">0</span> Computer</h4>
+
+    <div class="selectionImg">
+      <img class="playerImg" src="img/white.png" alt="Player Selection Image">
+      <img class="computerImg" src="img/white.png" alt="Computer Selection Image">
+    </div>
+    <div class="playerOptions">
+      <button class="rock">Rock</button>
+      <button class="paper">Paper</button>
+      <button class="scissor">Scissor</button>
+    </div>
+
+    <div class="resultText">Round result is displayed here.</div>
+    <div class="finalResultText">Final result will be displayed here.</div>
+
+    <script src="script.js"></script>
+  </div>
 </body>
 
 </html>
