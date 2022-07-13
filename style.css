@@ -16,14 +16,15 @@ html {
 .mainbody {
   display: flex;
   flex-direction: column;
-  width: 35rem;
+  width: 32rem;
   gap: 2rem;
   margin: 0 auto;
 }
 
 .roundCountText {
   border: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: 2.6rem;
+  font-size: 2.3rem;
+  font-weight: 200;
 }
 
 .selectionImg {
@@ -38,6 +39,7 @@ html {
 .currentRunningScore {
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 2.4rem;
+  font-weight: 200;
 }
 
 .playerOptions {
@@ -58,4 +60,18 @@ button {
 .finalResultText {
   border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.restart {
+  align-self: center;
+  color: rgb(109, 109, 109);
+}
+
+.currentPlayerScore {
+  font-weight: 600;
+}
+
+.currentComputerScore {
+  font-weight: 600;
 }

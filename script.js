@@ -9,36 +9,36 @@ let currentPlayerScore = document.querySelector(".currentPlayerScore");
 let currentComputerScore = document.querySelector(".currentComputerScore");
 let playerImg = document.querySelector(".playerImg");
 let computerImg = document.querySelector(".computerImg");
+let restartButton = document.querySelector(".restart");
 
 // Function that randomly outputs rock paper scissor
 function computerPlay() {
   rps = ["ROCK", "PAPER", "SCISSOR"];
 
   randNum = Math.round(Math.random() * 2);
+
   return rps[randNum];
 }
 
 function theRpsGame(playerSelection, computerSelection = computerPlay()) {
-  if (computerSelection == "ROCK") {
-    computerImg.src = "img/Rock.png";
-  } else if (playerSelection == "PAPER") {
-    computerImg.src = "img/Paper.png";
-  } else if (playerSelection == "SCISSOR") {
-    computerImg.src = "img/Scissor.png";
-  }
-  if (playerSelection == "ROCK") {
-    playerImg.src = "img/Rock.png";
-  } else if (playerSelection == "PAPER") {
-    playerImg.src = "img/Paper.png";
-  } else if (playerSelection == "SCISSOR") {
-    playerImg.src = "img/Scissor.png";
-  }
+  if (scorePlayer == 5 || scoreComputer == 5) {
+  } else if (scorePlayer || scoreComputer < 5) {
+    if (computerSelection == "ROCK") {
+      computerImg.src = "img/Rock.png";
+    } else if (computerSelection == "PAPER") {
+      computerImg.src = "img/Paper.png";
+    } else if (computerSelection == "SCISSOR") {
+      computerImg.src = "img/Scissor.png";
+    }
 
-  if (scorePlayer == 5) {
-    finalResultText.textContent = `Player wins. Score is ${scorePlayer} - ${scoreComputer}.`;
-  } else if (scoreComputer == 5) {
-    finalResultText.textContent = `Computer wins. Score is ${scorePlayer} - ${scoreComputer}.`;
-  } else {
+    if (playerSelection == "ROCK") {
+      playerImg.src = "img/Rock.png";
+    } else if (playerSelection == "PAPER") {
+      playerImg.src = "img/Paper.png";
+    } else if (playerSelection == "SCISSOR") {
+      playerImg.src = "img/Scissor.png";
+    }
+
     if (playerSelection === computerSelection) {
       // Game Logic
       roundCount++;
@@ -63,11 +63,30 @@ function theRpsGame(playerSelection, computerSelection = computerPlay()) {
       currentComputerScore.textContent = scoreComputer;
     }
   }
-  roundCountText.textContent = `Round : ${roundCount}`;
+  roundCountText.textContent = `Round ${roundCount}`;
+
+  if (scorePlayer == 5) {
+    finalResultText.textContent = `Player wins. Score is ${scorePlayer} - ${scoreComputer}.`;
+  } else if (scoreComputer == 5) {
+    finalResultText.textContent = `Computer wins. Score is ${scorePlayer} - ${scoreComputer}.`;
+  }
 }
 
 // Options for player's selection
 const playRound = playerOptionsDiv.addEventListener("click", function (e) {
   playerSelection = e.target.innerText.toUpperCase();
   theRpsGame(playerSelection);
+});
+
+restartButton.addEventListener("click", () => {
+  scorePlayer = 0;
+  scoreComputer = 0;
+  roundCount = 0;
+  currentPlayerScore.textContent = scorePlayer;
+  currentComputerScore.textContent = scoreComputer;
+  roundCountText.textContent = roundCount;
+  resultText.textContent = "Round result is displayed here.";
+  finalResultText.textContent = "Final result will be displayed here.";
+  playerImg.src = "img/white.png";
+  computerImg.src = "img/white.png";
 });
